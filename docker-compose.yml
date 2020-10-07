@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  wordpress:
+    image: wordpress:5.5-apache
+    ports:
+      - "9080:80"
+    depends_on:
+      - bd
+    environment:
+      WORDPRESS_DB_HOST: bd
+      WORDPRESS_DB_USER: root
+
+  bd:
+    image: mysql:8
+    expose:
+      - "3306"
+    volumes:
+      - mysql_volume:/var/log/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+
+volumes:
+  mysql_volume: {}
+
